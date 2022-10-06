@@ -15,742 +15,250 @@
     <div class="mermaid">
         classDiagram
 	direction LR
-	class BasicSportsModel{
+	class Ballstats3APIModel{
+...
+}
+class UnitPostBody{
+	- name: str
+
+}
+class UnitUpdateBody{
+	- name: Optional[str]
+
+}
+class Unit{
 	- id: int
 
 }
-class Config{
-...
-}
-class BettingOffer{
-	- outcomeFK: int
-	- odds_providerFK: int
-	- bettingoffer_statusFK: int
-	- odds: float
-	- odds_old: float
-	- active: YesNoEnum
-	- is_back: YesNoEnum
-	- is_single: YesNoEnum
-	- is_live: YesNoEnum
-	- volume: int
-	- currency: CurrencyEnum
-	- coupon_key: str
-
-}
-class BettingOfferStatus{
-	- name: str
-	- description: str
-
-}
-class ClientLanguage{
-	- object_typeFK: int
-	- objectFK: int
-	- language_typeFK: int
-	- groupsFK: int
+class CurrencyPostBody{
 	- name: str
 
 }
-class Country{
+class CurrencyUpdateBody{
+	- name: Optional[str]
+
+}
+class Currency{
+	- id: int
+
+}
+class ReportPostBody{
+	- name: str
+	- stats_per_report: StatsPerReportEnum
+	- extension: ExtensionEnum
+	- month_to_date: bool
+	- platform_id: int
+	- default: bool
+
+}
+class Report{
+	- id: int
+
+}
+class ReportDetail{
+	- platform_name: str
+
+}
+class ReportPatchBody{
+	- name: Optional[str]
+	- stats_per_report: Optional[StatsPerReportEnum]
+	- extension: Optional[ExtensionEnum]
+	- month_to_date: Optional[bool]
+	- default: Optional[bool]
+
+}
+class Credential{
+	- password: str
+	- api_key: str
+	- api_username: str
+
+}
+class AccountCredential{
+	- account_id: int
+
+}
+class AccountPostBody{
+	- username: str
+	- url: HttpUrl
+	- enabled: bool
+	- operator_id: int
+	- historical: bool
+	- start: date
+	- stop: date
+	- cron: str
+	- notes: str
+	- proxy: bool
+	- currency_id: Optional[int]
+	- unit_id: Optional[int]
+	- status: str
+	- account_manager: Optional[str]
+	- login_status: str
+
+}
+class Account{
+	- id: int
+
+}
+class AccountDetail{
+	- operator_name: str
+
+}
+class AccountReportPatchBody{
+	- account_id: Optional[int]
+	- report_id: Optional[int]
+	- last_historical_retrieval: Optional[date]
+	- active: Optional[bool]
+
+}
+class AccountReportPostBody{
+	- account_id: int
+	- report_id: int
+	- last_historical_retrieval: Optional[date]
+	- active: bool
+
+}
+class AccountReport{
+	- id: int
+
+}
+class AccountStats{
+	- disabled_accounts: int
+
+}
+class AccountPatchBody{
+	- username: Optional[str]
+	- url: Optional[HttpUrl]
+	- enabled: Optional[bool]
+	- operator_id: Optional[int]
+	- historical: Optional[bool]
+	- start: Optional[date]
+	- stop: Optional[date]
+	- cron: Optional[str]
+	- notes: Optional[str]
+	- proxy: Optional[bool]
+	- currency_id: Optional[int]
+	- unit_id: Optional[int]
+	- status: Optional[str]
+	- account_manager: Optional[str]
+	- login_status: Optional[str]
+
+}
+class PlatformPostBody{
 	- name: str
 
 }
-class Draw{
+class Platform{
+	- id: int
+
+}
+class PlatformPatchBody{
+	- name: Optional[str]
+
+}
+class OperatorPostBody{
 	- name: str
-	- object_typeFK: int
-	- objectFK: int
-	- draw_typeFK: int
+	- platform_id: int
 
 }
-class DrawConfig{
-	- name: str
-	- drawFK: int
-	- value: str
+class OperatorUpdateBody{
+	- name: Optional[str]
+	- platform_id: Optional[int]
 
 }
-class DrawDetail{
-	- drawFK: int
-	- participantFK: int
-	- rank: str
-	- value: str
+class Operator{
+	- id: int
 
 }
-class DrawEvent{
-	- name: str
-	- drawFK: int
-	- round_typeFK: int
-	- draw_eventFK: int
-	- draw_order: int
+class ResultBase{
+	- result_date: date
+	- account_report_id: int
 
 }
-class DrawEventDetail{
-	- draw_eventFK: int
-	- object_typeFK: int
-	- objectFK: int
-	- startdate: datetime
-	- rank: int
-	- draw_event_detailFK: int
-
-}
-class DrawEventParticipants{
-	- draw_eventFK: int
-	- participantFK: int
-	- number: int
-
-}
-class DrawType{
-	- name: str
-	- description: str
-
-}
-class Event{
-	- name: str
-	- tournament_stageFK: int
-	- startdate: datetime
-	- status_type: EventStatusTypeEnum
-	- status_descFK: int
-	- round_typeFK: int
-
-}
-class EventIncident{
-	- eventFK: int
-	- sportFK: int
-	- event_incident_typeFK: int
-	- elapsed: int
-	- elapsed_plus: int
-	- comment: str
-	- sortorder: int
-
-}
-class EventIncidentDetail{
-	- type: str
-	- event_incidentFK: int
-	- participantFK: int
-	- value: str
-
-}
-class EventIncidentType{
-	- player1: YesNoEnum
-	- player2: YesNoEnum
-	- team: YesNoEnum
-	- comment: str
-	- subtype1: str
-	- subtype2: str
-	- name: str
-	- type: str
-	- comment_type: str
-	- player2_type: str
-
-}
-class EventIncidentTypeText{
-	- event_incident_typeFK: int
-	- name: str
-
-}
-class EventIncidentTypeTextData{
-	- event_incident_type_textFK: int
-	- type: str
-	- value: str
-
-}
-class EventParticipants{
-	- number: int
-	- participantFK: int
-	- eventFK: int
-
-}
-class EventScope{
-	- eventFK: int
-	- scope_typeFK: int
-
-}
-class EventScopeDetail{
-	- event_scopeFK: int
-	- name: str
-	- value: str
-
-}
-class Image{
-	- object: str
-	- objectFK: int
-	- type: str
-	- contenttype: str
-	- name: str
-	- value: str
-
-}
-class Incident{
-	- event_participantsFK: int
-	- incident_typeFK: int
-	- incident_code: IncidentTypeEnum
-	- elapsed: int
-	- elapsed_plus: int
-	- sortorder: int
-
-}
-class IncidentType{
-	- name: str
-	- subtype: str
-
-}
-class Language{
-	- object: str
-	- objectFK: int
-	- language_typeFK: int
-	- name: str
-
-}
-class LanguageType{
-	- name: str
-	- description: str
-
-}
-class Lineup{
-	- event_participantsFK: int
-	- participantFK: int
-	- lineup_typeFK: int
-	- shirt_number: int
-	- pos: int
-
-}
-class LineupScopeResult{
-	- lineupFK: int
-	- event_scopeFK: int
-	- scope_data_typeFK: int
-	- value: str
-
-}
-class LineupType{
-	- name: str
-
-}
-class LiveoddsBettingoffer{
-	- object: str
-	- objectFK: int
-	- odds_providerFK: int
-	- liveodds_typeFK: int
-	- liveodds_subtypeFK: int
-	- liveodds_scopeFK: int
-	- liveodds_statusFK: int
-	- iparam1: int
-	- iparam2: int
-	- dparam1: float
-	- dparam2: float
-	- sparam: str
-	- value: float
-	- value_old: float
-	- coupon_key: str
-
-}
-class LiveoddsBettingofferAverage{
-	- object: str
-	- objectFK: int
-	- liveodds_typeFK: int
-	- liveodds_subtypeFK: int
-	- liveodds_scopeFK: int
-	- liveodds_statusFK: int
-	- iparam1: int
-	- iparam2: int
-	- dparam1: float
-	- dparam2: float
-	- sparam: str
-	- value: float
-	- value_old: float
-
-}
-class LiveoddsScope{
-	- name: str
-	- description: str
-
-}
-class LiveoddsStatus{
-	- name: str
-	- description: str
-
-}
-class LiveoddsSubtype{
-	- name: str
-	- description: str
-
-}
-class LiveoddsType{
-	- name: str
-	- description: str
-
-}
-class ObjectParticipants{
-	- object: str
-	- objectFK: int
-	- participantFK: int
-	- participant_type: ParticipantTypeEnum
-	- date_from: date
-	- date_to: date
-	- active: YesNoEnum
-
-}
-class ObjectType{
-	- name: str
-	- description: str
-
-}
-class OddsProvider{
-	- name: str
-	- url: str
-	- countryFK: int
-	- bookmaker: YesNoEnum
-	- preferred: YesNoEnum
-	- betex: YesNoEnum
-	- active: YesNoEnum
-
-}
-class OffenceType{
-	- name: str
-
-}
-class Outcome{
-	- object: str
-	- objectFK: int
-	- outcome_typeFK: int
-	- outcome_scopeFK: int
-	- outcome_subtypeFK: int
-	- iparam: int
-	- iparam2: int
-	- dparam: float
-	- dparam2: float
-	- sparam: str
-
-}
-class OutcomeScope{
-	- name: str
-	- description: str
-
-}
-class OutcomeSubtype{
-	- name: str
-	- description: str
-
-}
-class OutcomeType{
-	- name: str
-	- description: str
-
-}
-class Participant{
-	- name: str
-	- gender: GenderEnum
-	- type: str
-	- countryFK: int
-
-}
-class Property{
-	- object: str
-	- objectFK: int
-	- type: str
-	- name: str
-	- value: str
-
-}
-class Reference{
-	- object: str
-	- objectFK: int
-	- refers_to: int
-	- name: str
-
-}
-class Reference_type{
-	- name: str
-	- description: str
+class ResultBasic{
+	- id: int
+	- created: datetime
 
 }
 class Result{
-	- event_participantsFK: int
-	- result_typeFK: int
-	- result_code: str
+	- stats: str
+
+}
+class ResultGaps{
+	- days: List[date]
+
+}
+class ResultPostBody{
+	- stats: str
+
+}
+class SettingPostBody{
+	- key: str
 	- value: str
 
 }
-class ResultType{
-	- name: str
-	- code: str
+class Setting{
+	- id: int
 
 }
-class RoundType{
-	- name: str
-	- value: int
-	- knockout: YesNoEnum
+class SettingPatchBody{
+	- key: Optional[str]
+	- value: Optional[str]
 
 }
-class ScopeDataType{
-	- name: str
-	- description: str
+class Dag{
+	- account_id: int
+	- url: str
+	- username: str
+	- operator_name: str
+	- platform_name: str
+	- report_names: List[str]
+	- cron: str
+	- historical: bool
 
 }
-class ScopeResult{
-	- event_participantsFK: int
-	- event_scopeFK: int
-	- scope_data_typeFK: int
-	- value: str
-
-}
-class ScopeType{
-	- name: str
-	- description: str
-
-}
-class Sport{
-	- name: str
-
-}
-class Standing{
-	- object: str
-	- objectFK: int
-	- standing_typeFK: int
-	- name: str
-
-}
-class StandingConfig{
-	- standingFK: int
-	- standing_type_paramFK: int
-	- value: str
-	- sub_param: str
-
-}
-class StandingData{
-	- standing_participantsFK: int
-	- standing_type_paramFK: int
-	- value: str
-	- code: str
-	- sub_param: str
-
-}
-class StandingParticipants{
-	- standingFK: int
-	- participantFK: int
-	- rank: int
-
-}
-class StandingType{
-	- name: str
-	- description: str
-
-}
-class StandingTypeParam{
-	- standing_typeFK: int
-	- code: str
+class MetricType{
 	- name: str
 	- type: str
+	- metric: str
 
 }
-class StatRules{
-	- rule: str
-	- rule_type: str
-	- object_type: str
-	- homeaway: str
-	- matchrange: str
-	- h2h: YesNoEnum
-	- sub_param: str
-	- name: str
-	- type: str
-
-}
-class Statistic{
-	- object_typeFK: int
-	- objectFK: int
-	- statistic_typeFK: int
-	- name: str
-
-}
-class StatisticConfig{
-	- statisticFK: int
-	- statistic_data_typeFK: int
-
-}
-class StatisticData1{
-	- statistic_participants1FK: int
-	- statistic_data_typeFK: int
-	- statistic_data_type_detailFK: int
-	- value: str
-
-}
-class StatisticData2{
-	- statistic_participants2FK: int
-	- statistic_data_typeFK: int
-	- statistic_data_type_detailFK: int
-	- value: str
-
-}
-class StatisticData3{
-	- statistic_participants3FK: int
-	- statistic_data_typeFK: int
-	- statistic_data_type_detailFK: int
-	- value: str
-
-}
-class StatisticData4{
-	- statistic_participants4FK: int
-	- statistic_data_typeFK: int
-	- statistic_data_type_detailFK: int
-	- value: str
-
-}
-class StatisticData5{
-	- statistic_participants5FK: int
-	- statistic_data_typeFK: int
-	- statistic_data_type_detailFK: int
-	- value: str
-
-}
-class StatisticData6{
-	- statistic_participants6FK: int
-	- statistic_data_typeFK: int
-	- statistic_data_type_detailFK: int
-	- value: str
-
-}
-class StatisticData7{
-	- statistic_participants7FK: int
-	- statistic_data_typeFK: int
-	- statistic_data_type_detailFK: int
-	- value: str
-
-}
-class StatisticData8{
-	- statistic_participants8FK: int
-	- statistic_data_typeFK: int
-	- statistic_data_type_detailFK: int
-	- value: str
-
-}
-class StatisticDataType{
-	- name: str
-	- statistic_typeFK: int
-	- statistic_data_type_categoryFK: int
-	- code: str
-	- description: str
-
-}
-class StatisticDataTypeCategory{
-	- name: str
-	- description: str
-
-}
-class StatisticDataTypeDetail{
-	- statistic_data_typeFK: int
-	- name: str
-	- description: str
-
-}
-class StatisticParticipants1{
-	- statisticFK: int
-	- participantFK: int
-
-}
-class StatisticParticipants2{
-	- statisticFK: int
-	- participantFK: int
-
-}
-class StatisticParticipants3{
-	- statisticFK: int
-	- participantFK: int
-
-}
-class StatisticParticipants4{
-	- statisticFK: int
-	- participantFK: int
-
-}
-class StatisticParticipants5{
-	- statisticFK: int
-	- participantFK: int
-
-}
-class StatisticParticipants6{
-	- statisticFK: int
-	- participantFK: int
-
-}
-class StatisticParticipants7{
-	- statisticFK: int
-	- participantFK: int
-
-}
-class StatisticParticipants8{
-	- statisticFK: int
-	- participantFK: int
-
-}
-class StatisticType{
-	- name: str
-	- description: str
-
-}
-class StatsLive{
-	- stat_rulesFK: int
-	- participantFK: int
-	- eventFK: int
-	- teamFK: int
-	- trigger_type: str
-	- matchcount: int
-	- value: str
-	- value_div_matchcount: float
-	- incidentFK: int
-	- outcomeFK: int
-
-}
-class StatsOdds{
-	- stat_rulesFK: int
-	- param: str
-	- name: str
-	- type: str
-
-}
-class Status{
-	- name: str
-	- mapTo: int
-	- status_type: EventStatusTypeEnum
-
-}
-class Tournament{
-	- name: str
-	- tournament_templateFK: int
-
-}
-class TournamentStage{
-	- name: str
-	- tournamentFK: int
-	- gender: GenderEnum
-	- countryFK: int
-	- startdate: datetime
-	- enddate: datetime
-
-}
-class TournamentTemplate{
-	- name: str
-	- sportFK: int
-	- gender: GenderEnum
-
-}
-class Venue{
-	- name: str
-	- countryFK: int
-	- venue_typeFK: int
-
-}
-class VenueData{
-	- value: str
-	- venue_data_typeFK: int
-	- venueFK: int
-
-}
-class VenueDataType{
-	- name: str
-
-}
-class VenueObject{
-	- object_typeFK: int
-	- objectFK: int
-	- venueFK: int
-	- neutral: YesNoEnum
-
-}
-class VenueType{
-	- name: str
-
-}
-BasicSportsModel --> SportsBaseModel
-BettingOffer --> BasicSportsModel
-BettingOfferStatus --> BasicSportsModel
-ClientLanguage --> BasicSportsModel
-Country --> BasicSportsModel
-Draw --> BasicSportsModel
-DrawConfig --> BasicSportsModel
-DrawDetail --> BasicSportsModel
-DrawEvent --> BasicSportsModel
-DrawEventDetail --> BasicSportsModel
-DrawEventParticipants --> BasicSportsModel
-DrawType --> BasicSportsModel
-Event --> BasicSportsModel
-EventIncident --> BasicSportsModel
-EventIncidentDetail --> BasicSportsModel
-EventIncidentType --> BasicSportsModel
-EventIncidentTypeText --> BasicSportsModel
-EventIncidentTypeTextData --> BasicSportsModel
-EventParticipants --> BasicSportsModel
-EventScope --> BasicSportsModel
-EventScopeDetail --> BasicSportsModel
-Image --> BasicSportsModel
-Incident --> BasicSportsModel
-IncidentType --> BasicSportsModel
-Language --> BasicSportsModel
-LanguageType --> BasicSportsModel
-Lineup --> BasicSportsModel
-LineupScopeResult --> BasicSportsModel
-LineupType --> BasicSportsModel
-LiveoddsBettingoffer --> BasicSportsModel
-LiveoddsBettingofferAverage --> BasicSportsModel
-LiveoddsScope --> BasicSportsModel
-LiveoddsStatus --> BasicSportsModel
-LiveoddsSubtype --> BasicSportsModel
-LiveoddsType --> BasicSportsModel
-ObjectParticipants --> BasicSportsModel
-ObjectType --> BasicSportsModel
-OddsProvider --> BasicSportsModel
-OffenceType --> BasicSportsModel
-Outcome --> BasicSportsModel
-OutcomeScope --> BasicSportsModel
-OutcomeSubtype --> BasicSportsModel
-OutcomeType --> BasicSportsModel
-Participant --> BasicSportsModel
-Property --> BasicSportsModel
-Reference --> BasicSportsModel
-Reference_type --> BasicSportsModel
-Result --> BasicSportsModel
-ResultType --> BasicSportsModel
-RoundType --> BasicSportsModel
-ScopeDataType --> BasicSportsModel
-ScopeResult --> BasicSportsModel
-ScopeType --> BasicSportsModel
-Sport --> BasicSportsModel
-Standing --> BasicSportsModel
-StandingConfig --> BasicSportsModel
-StandingData --> BasicSportsModel
-StandingParticipants --> BasicSportsModel
-StandingType --> BasicSportsModel
-StandingTypeParam --> BasicSportsModel
-StatRules --> BasicSportsModel
-Statistic --> BasicSportsModel
-StatisticConfig --> BasicSportsModel
-StatisticData1 --> BasicSportsModel
-StatisticData2 --> BasicSportsModel
-StatisticData3 --> BasicSportsModel
-StatisticData4 --> BasicSportsModel
-StatisticData5 --> BasicSportsModel
-StatisticData6 --> BasicSportsModel
-StatisticData7 --> BasicSportsModel
-StatisticData8 --> BasicSportsModel
-StatisticDataType --> BasicSportsModel
-StatisticDataTypeCategory --> BasicSportsModel
-StatisticDataTypeDetail --> BasicSportsModel
-StatisticParticipants1 --> BasicSportsModel
-StatisticParticipants2 --> BasicSportsModel
-StatisticParticipants3 --> BasicSportsModel
-StatisticParticipants4 --> BasicSportsModel
-StatisticParticipants5 --> BasicSportsModel
-StatisticParticipants6 --> BasicSportsModel
-StatisticParticipants7 --> BasicSportsModel
-StatisticParticipants8 --> BasicSportsModel
-StatisticType --> BasicSportsModel
-StatsLive --> BasicSportsModel
-StatsOdds --> BasicSportsModel
-Status --> BasicSportsModel
-Tournament --> BasicSportsModel
-TournamentStage --> BasicSportsModel
-TournamentTemplate --> BasicSportsModel
-Venue --> BasicSportsModel
-VenueData --> BasicSportsModel
-VenueDataType --> BasicSportsModel
-VenueObject --> BasicSportsModel
-VenueType --> BasicSportsModel
+Ballstats3APIModel <-- BaseModel
+UnitPostBody <-- Ballstats3APIModel
+UnitUpdateBody <-- Ballstats3APIModel
+Unit <-- UnitPostBody
+CurrencyPostBody <-- Ballstats3APIModel
+CurrencyUpdateBody <-- Ballstats3APIModel
+Currency <-- CurrencyPostBody
+ReportPostBody <-- Ballstats3APIModel
+Report <-- ReportPostBody
+ReportDetail <-- Report
+ReportPatchBody <-- Ballstats3APIModel
+Credential <-- Ballstats3APIModel
+AccountCredential <-- Credential
+AccountPostBody <-- Ballstats3APIModel
+Account <-- AccountPostBody
+AccountDetail <-- Account
+AccountReportPatchBody <-- Ballstats3APIModel
+AccountReportPostBody <-- Ballstats3APIModel
+AccountReport <-- AccountReportPostBody
+AccountStats <-- Ballstats3APIModel
+AccountPatchBody <-- Ballstats3APIModel
+PlatformPostBody <-- Ballstats3APIModel
+Platform <-- PlatformPostBody
+PlatformPatchBody <-- Ballstats3APIModel
+OperatorPostBody <-- Ballstats3APIModel
+OperatorUpdateBody <-- Ballstats3APIModel
+Operator <-- OperatorPostBody
+ResultBase <-- Ballstats3APIModel
+ResultBasic <-- ResultBase
+Result <-- ResultBasic
+ResultGaps <-- Ballstats3APIModel
+ResultPostBody <-- ResultBase
+SettingPostBody <-- Ballstats3APIModel
+Setting <-- SettingPostBody
+SettingPatchBody <-- Ballstats3APIModel
+Dag <-- Ballstats3APIModel
+MetricType <-- Ballstats3APIModel
 
     </div>
 

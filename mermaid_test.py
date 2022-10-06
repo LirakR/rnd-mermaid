@@ -4,7 +4,7 @@ import requests
 response = requests.post(
     url="http://localhost:9000/visualize/create",
     json={
-        "path": "/home/lirakr/repos/sports-models/sports_models/models/basic.py",
+        "path": "/home/lirakr/repos/bi3-models/bi3_models/bi3_api/models.py",
         "direction": "LR",
     }
 )
